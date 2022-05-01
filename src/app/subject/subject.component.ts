@@ -12,8 +12,8 @@ export class SubjectComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.data.next(1);
-    this.data.subscribe(a => console.log(a));
+    this.maneiraErradaQueNaoVaiLogarNoConsole();
+    // this.maneiraCorreta();
   }
 
   // Essa maneira não loga no console, pois um Subject, precisa primeirou se subscrever para dps receber o dado
@@ -21,6 +21,13 @@ export class SubjectComponent implements OnInit {
   maneiraErradaQueNaoVaiLogarNoConsole() {
     this.data.next(1);
     this.data.subscribe(a => console.log(a));
+  }
+
+  // Aqui vc primeiro subscreve no Subject e ele vai ficar esperar voce emitir eventos, assim que emitir
+  // vai ser nesse caso logado no console.log
+  maneiraCorreta() {
+    this.data.subscribe(a => console.log(a));
+    this.data.next(1);
   }
 
 }
